@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "./components/Layout";
+import Main from "./pages/Main";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Leaderboard from "./pages/Leaderboard";
@@ -20,12 +21,12 @@ const App = () => (
       <BrowserRouter>
         <Layout>
           <Routes>
+            <Route path="/" element={<Main />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/game" element={<Game />} />
             <Route path="/chat" element={<Chat />} />
-            <Route path="/" element={<Navigate to="/auth" replace />} />
           </Routes>
         </Layout>
       </BrowserRouter>
