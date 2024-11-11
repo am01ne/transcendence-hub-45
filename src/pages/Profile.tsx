@@ -1,7 +1,7 @@
 import { User, Trophy, GamepadIcon, Settings, MessageSquare, UserPlus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis } from 'recharts';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -19,6 +19,24 @@ const Profile = () => {
     { id: 2, name: "Bob Johnson", level: 23, avatar: "/placeholder.svg" },
     { id: 3, name: "Carol White", level: 18, avatar: "/placeholder.svg" },
   ];
+
+  // Chart configuration
+  const chartConfig = {
+    winRate: {
+      label: "Win Rate",
+      theme: {
+        light: "#3b82f6",
+        dark: "#60a5fa"
+      }
+    },
+    playTime: {
+      label: "Play Time",
+      theme: {
+        light: "#10b981",
+        dark: "#34d399"
+      }
+    }
+  };
 
   return (
     <div className="pt-8 space-y-6 max-w-7xl mx-auto px-4">
@@ -61,7 +79,7 @@ const Profile = () => {
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
+                <ChartContainer config={chartConfig}>
                   <LineChart data={performanceData}>
                     <XAxis dataKey="date" />
                     <YAxis />
@@ -69,7 +87,7 @@ const Profile = () => {
                     <Line type="monotone" dataKey="playTime" stroke="#10b981" />
                     <ChartTooltip content={<ChartTooltipContent />} />
                   </LineChart>
-                </ResponsiveContainer>
+                </ChartContainer>
               </div>
             </CardContent>
           </Card>
