@@ -4,7 +4,7 @@ import { Home, User, Trophy, GamepadIcon, MessageSquare } from "lucide-react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-  const showNav = location.pathname !== "/";
+  const hideNav = ["/", "/auth"].includes(location.pathname);
 
   const navItems = [
     { icon: Home, path: "/", label: "Home" },
@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="min-h-screen">
-      {showNav && (
+      {!hideNav && (
         <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 glass-effect rounded-2xl p-4 z-50">
           <ul className="flex items-center gap-8">
             {navItems.map((item) => {
