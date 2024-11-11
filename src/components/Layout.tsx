@@ -39,7 +39,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </ul>
         </nav>
       )}
-      <main className="flex-1 container mx-auto px-4 pb-24">{children}</main>
+      <main className="flex-1 container mx-auto px-4 pb-24 max-w-7xl">
+        <div className="flex justify-center">
+          <div className="w-full max-w-6xl">{children}</div>
+        </div>
+      </main>
     </div>
   );
 };

@@ -6,11 +6,11 @@ import { Input } from "@/components/ui/input";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import { useState } from "react";
+import StatsCard from "@/components/StatsCard";
 
 const Profile = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
-  // Mock data with real-looking examples
   const performanceData = [
     { month: "Jan", winRate: 65 },
     { month: "Feb", winRate: 70 },
@@ -93,41 +93,27 @@ const Profile = () => {
 
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="glass-card h-24 transition-all duration-300 hover:shadow-[0_0_15px_rgba(234,179,8,0.5)]">
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-4">
-                  <Trophy size={24} className="text-yellow-500" />
-                  <div>
-                    <div className="font-medium">Rank</div>
-                    <div className="text-2xl font-bold">#123</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="glass-card h-24 transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.5)]">
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-4">
-                  <GamepadIcon size={24} className="text-green-500" />
-                  <div>
-                    <div className="font-medium">Games</div>
-                    <div className="text-2xl font-bold">42</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="glass-card h-24 transition-all duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]">
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-4">
-                  <Trophy size={24} className="text-purple-500" />
-                  <div>
-                    <div className="font-medium">Win Rate</div>
-                    <div className="text-2xl font-bold">76%</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <StatsCard
+              icon={Trophy}
+              iconColor="text-yellow-500"
+              label="Rank"
+              value="#123"
+              glowColor="rgba(234,179,8,0.5)"
+            />
+            <StatsCard
+              icon={GamepadIcon}
+              iconColor="text-green-500"
+              label="Games"
+              value="42"
+              glowColor="rgba(34,197,94,0.5)"
+            />
+            <StatsCard
+              icon={Trophy}
+              iconColor="text-purple-500"
+              label="Win Rate"
+              value="76%"
+              glowColor="rgba(168,85,247,0.5)"
+            />
           </div>
 
           {/* Performance Chart */}
@@ -150,7 +136,6 @@ const Profile = () => {
           </Card>
         </div>
 
-        {/* Friends and Players Lists */}
         <div className="space-y-6">
           {/* Friends List */}
           <Card className="glass-card">
