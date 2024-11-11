@@ -10,7 +10,7 @@ const Settings = () => {
       <h1 className="text-3xl font-bold mb-6">Account Settings</h1>
 
       {/* Profile Settings */}
-      <Card>
+      <Card className="glass-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -41,7 +41,7 @@ const Settings = () => {
       </Card>
 
       {/* Account Security */}
-      <Card>
+      <Card className="glass-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lock className="h-5 w-5" />
@@ -66,7 +66,7 @@ const Settings = () => {
       </Card>
 
       {/* Tournament Settings */}
-      <Card>
+      <Card className="glass-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Trophy className="h-5 w-5" />

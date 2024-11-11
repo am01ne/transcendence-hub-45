@@ -32,7 +32,7 @@ const Profile = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Profile Info */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+          <Card className="glass-card transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
             <CardHeader className="flex flex-row items-center gap-4">
               <div className="w-20 h-20 rounded-full bg-blue-500/20 flex items-center justify-center">
                 <User size={40} className="text-blue-400" />
@@ -52,7 +52,7 @@ const Profile = () => {
 
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="transition-all duration-300 hover:shadow-[0_0_15px_rgba(234,179,8,0.5)]">
+            <Card className="glass-card transition-all duration-300 hover:shadow-[0_0_15px_rgba(234,179,8,0.5)]">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-4">
                   <Trophy size={24} className="text-yellow-500" />
@@ -64,7 +64,7 @@ const Profile = () => {
               </CardContent>
             </Card>
             
-            <Card className="transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.5)]">
+            <Card className="glass-card transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.5)]">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-4">
                   <GamepadIcon size={24} className="text-green-500" />
@@ -76,7 +76,7 @@ const Profile = () => {
               </CardContent>
             </Card>
             
-            <Card className="transition-all duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+            <Card className="glass-card transition-all duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-4">
                   <Trophy size={24} className="text-purple-500" />
@@ -90,7 +90,7 @@ const Profile = () => {
           </div>
 
           {/* Performance Chart */}
-          <Card>
+          <Card className="glass-card">
             <CardHeader>
               <CardTitle>Performance History</CardTitle>
             </CardHeader>
@@ -112,7 +112,7 @@ const Profile = () => {
         {/* Friends and Players Lists */}
         <div className="space-y-6">
           {/* Friends List */}
-          <Card>
+          <Card className="glass-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5" />
@@ -147,7 +147,7 @@ const Profile = () => {
           </Card>
 
           {/* Players List */}
-          <Card>
+          <Card className="glass-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5" />
