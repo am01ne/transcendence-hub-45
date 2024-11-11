@@ -15,10 +15,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen">
       {!hideNav && (
-        <nav className="fixed left-8 top-1/2 -translate-y-1/2 glass-effect rounded-2xl p-4 z-50">
-          <ul className="flex flex-col items-center gap-8">
+        <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 glass-effect rounded-2xl p-4 z-50">
+          <ul className="flex items-center gap-8">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -39,7 +39,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </ul>
         </nav>
       )}
-      <main className="flex-1 container mx-auto px-4 pb-24 ml-24">{children}</main>
+      <main className="container mx-auto px-4 pb-24">{children}</main>
     </div>
   );
 };
