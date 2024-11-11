@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LogIn } from "lucide-react";
 import { User42 } from "@/components/icons/User42";
+import { toast } from "sonner";
 
 const Main = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success("Welcome back!");
+    navigate("/game");
+  };
+
+  const handleTestAccount = () => {
+    toast.success("Logged in as test user");
+    navigate("/game");
+  };
 
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -21,16 +33,14 @@ const Main = () => {
         </div>
 
         <div className="glass-card space-y-6">
-          <h2 className="text-2xl font-semibold">
-            {isLogin ? "Let's get you started" : "Create an account"}
-          </h2>
+          <h2 className="text-2xl font-semibold">Let's get you started</h2>
           
-          <form className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm text-muted-foreground">Email</label>
               <Input
                 type="email"
-                placeholder="Enter your email"
+                defaultValue="test@example.com"
                 className="glass-effect"
               />
             </div>
@@ -38,22 +48,20 @@ const Main = () => {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <label className="text-sm text-muted-foreground">Password</label>
-                {isLogin && (
-                  <button type="button" className="text-sm text-blue-400 hover:underline">
-                    Forgot password?
-                  </button>
-                )}
+                <button type="button" className="text-sm text-blue-400 hover:underline">
+                  Forgot password?
+                </button>
               </div>
               <Input
                 type="password"
-                placeholder="Enter your password"
+                defaultValue="password"
                 className="glass-effect"
               />
             </div>
             
-            <Button className="w-full glass-button flex items-center justify-center gap-2">
+            <Button className="w-full glass-button flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-300">
               <LogIn size={20} />
-              {isLogin ? "Sign In" : "Sign Up"}
+              Sign In
             </Button>
           </form>
           
@@ -68,24 +76,24 @@ const Main = () => {
             </div>
           </div>
           
-          <Button
-            variant="outline"
-            className="w-full glass-button flex items-center justify-center gap-2"
-          >
-            <User42 size={20} />
-            Continue with 42
-          </Button>
-          
-          <p className="text-center text-sm text-muted-foreground">
-            {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-blue-400 hover:underline"
+          <div className="space-y-3">
+            <Button
+              variant="outline"
+              className="w-full glass-button flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-300"
+              onClick={() => handleTestAccount()}
             >
-              {isLogin ? "Sign up" : "Sign in"}
-            </button>
-          </p>
+              <User42 size={20} />
+              Use Test Account
+            </Button>
+            
+            <Button
+              variant="outline"
+              className="w-full glass-button flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-300"
+            >
+              <User42 size={20} />
+              Continue with 42
+            </Button>
+          </div>
         </div>
       </div>
 
