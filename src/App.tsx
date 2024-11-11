@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "./components/Layout";
 import Main from "./pages/Main";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import Leaderboard from "./pages/Leaderboard";
 import Game from "./pages/Game";
 import Chat from "./pages/Chat";
@@ -22,6 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/game" element={<Game />} />
             <Route path="/chat" element={<Chat />} />
