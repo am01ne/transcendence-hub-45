@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LogIn, User42 } from "lucide-react";
+import { LogIn } from "lucide-react";
+import { User42 } from "@/components/icons/User42";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
