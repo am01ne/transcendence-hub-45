@@ -48,6 +48,15 @@
   }
 }
 
+/* Add smooth page transitions */
+#root {
+  @apply transition-all duration-300;
+}
+
+main {
+  @apply animate-in fade-in duration-500;
+}
+
 body {
   @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900 via-slate-900 to-black min-h-screen text-foreground antialiased;
 }
