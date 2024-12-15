@@ -1,5 +1,6 @@
 import { Trophy, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 // Mock tournament data
 const tournament = {
@@ -24,21 +25,31 @@ const Tournament = () => {
         <h1 className="text-2xl font-bold">{tournament.name}</h1>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="flex justify-between items-center gap-16 px-8">
         {/* Quarter-finals */}
-        <div className="space-y-4">
+        <div className="space-y-16">
           <h2 className="text-lg font-semibold">Quarter-finals</h2>
           {[0, 2, 4, 6].map((index) => (
-            <Card key={index} className="bg-glass">
+            <Card key={index} className="bg-glass w-64">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  <span>{tournament.players[index].name}</span>
+                  <Link 
+                    to={`/profile/${tournament.players[index].id}`}
+                    className="hover:text-blue-400 transition-colors"
+                  >
+                    {tournament.players[index].name}
+                  </Link>
                 </div>
                 <div className="my-2 border-t border-gray-700" />
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  <span>{tournament.players[index + 1].name}</span>
+                  <Link 
+                    to={`/profile/${tournament.players[index + 1].id}`}
+                    className="hover:text-blue-400 transition-colors"
+                  >
+                    {tournament.players[index + 1].name}
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -46,40 +57,29 @@ const Tournament = () => {
         </div>
 
         {/* Semi-finals */}
-        <div className="space-y-4">
+        <div className="space-y-32 mt-24">
           <h2 className="text-lg font-semibold">Semi-finals</h2>
-          <Card className="bg-glass mt-16">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                <span>TBD</span>
-              </div>
-              <div className="my-2 border-t border-gray-700" />
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                <span>TBD</span>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="bg-glass mt-16">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                <span>TBD</span>
-              </div>
-              <div className="my-2 border-t border-gray-700" />
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                <span>TBD</span>
-              </div>
-            </CardContent>
-          </Card>
+          {[0, 1].map((index) => (
+            <Card key={index} className="bg-glass w-64">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span>TBD</span>
+                </div>
+                <div className="my-2 border-t border-gray-700" />
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span>TBD</span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {/* Finals */}
-        <div className="space-y-4">
+        <div className="space-y-4 mt-48">
           <h2 className="text-lg font-semibold">Finals</h2>
-          <Card className="bg-glass mt-32">
+          <Card className="bg-glass w-64">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
@@ -95,9 +95,9 @@ const Tournament = () => {
         </div>
 
         {/* Winner */}
-        <div className="space-y-4">
+        <div className="space-y-4 mt-48">
           <h2 className="text-lg font-semibold">Winner</h2>
-          <Card className="bg-glass mt-32">
+          <Card className="bg-glass w-64">
             <CardContent className="p-4 flex items-center gap-2">
               <Trophy className="h-5 w-5 text-yellow-500" />
               <span>TBD</span>
