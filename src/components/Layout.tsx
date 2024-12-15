@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, User, Trophy, GamepadIcon, MessageSquare } from "lucide-react";
+import { Home, User, Trophy, GamepadIcon, MessageSquare, Bell } from "lucide-react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -9,9 +9,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const navItems = [
     { icon: Home, path: "/", label: "Home" },
     { icon: User, path: "/profile", label: "Profile" },
-    { icon: Trophy, path: "/leaderboard", label: "Leaderboard" },
+    { icon: Trophy, path: "/tournament", label: "Tournament" },
     { icon: GamepadIcon, path: "/game", label: "Play" },
     { icon: MessageSquare, path: "/chat", label: "Chat" },
+    { icon: Bell, path: "/notifications", label: "Notifications" },
   ];
 
   return (

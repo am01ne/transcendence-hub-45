@@ -10,6 +10,8 @@ import Settings from "./pages/Settings";
 import Leaderboard from "./pages/Leaderboard";
 import Game from "./pages/Game";
 import Chat from "./pages/Chat";
+import Notifications from "./pages/Notifications";
+import Tournament from "./pages/Tournament";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const App = () => (
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/game" element={<Game />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/tournament" element={<Tournament />} />
           </Routes>
         </Layout>
       </BrowserRouter>
