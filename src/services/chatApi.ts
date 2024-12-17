@@ -14,8 +14,8 @@ export interface Chat {
 }
 
 export interface FriendRequest {
-  user1: string;
-  user2: string;
+  user1: number;
+  user2: number;
   type: 'friend' | 'game';
   status: 'pending' | 'accepted' | 'declined';
 }
@@ -44,7 +44,7 @@ export const chatApi = {
     });
   },
 
-  acceptFriend: async (user1: string, user2: string, type: string): Promise<void> => {
+  acceptFriend: async (user1: number, user2: number, type: string): Promise<void> => {
     await fetch(`${BASE_URL}/acceptFriend`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -52,15 +52,15 @@ export const chatApi = {
     });
   },
 
-  declineFriend: async (user1: string, user2: string): Promise<void> => {
+  declineFriend: async (user1: number, user2: number): Promise<void> => {
     await fetch(`${BASE_URL}/declineFriend/${user1}/${user2}`, { method: 'POST' });
   },
 
-  blockFriend: async (user1: string, user2: string): Promise<void> => {
+  blockFriend: async (user1: number, user2: number): Promise<void> => {
     await fetch(`${BASE_URL}/blockFriend/${user1}/${user2}`, { method: 'POST' });
   },
 
-  deblockFriend: async (user1: string, user2: string): Promise<void> => {
+  deblockFriend: async (user1: number, user2: number): Promise<void> => {
     await fetch(`${BASE_URL}/deblockFriend/${user1}/${user2}`, { method: 'POST' });
   },
 };

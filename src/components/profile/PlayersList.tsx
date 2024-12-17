@@ -50,11 +50,11 @@ const PlayersList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
 
-  const handleInviteFriend = async (userId: number) => {
+  const handleInviteFriend = async (playerId: number) => {
     try {
       await chatApi.inviteFriend({
-        user1: "1", // Hardcoded current user ID
-        user2: userId.toString(),
+        user1: 1, // Hardcoded current user ID
+        user2: playerId,
         type: "friend",
         status: "pending"
       });
@@ -63,6 +63,7 @@ const PlayersList = () => {
         description: "Your friend request has been sent successfully.",
       });
     } catch (error) {
+      console.error('Error sending friend request:', error);
       toast({
         title: "Error",
         description: "Failed to send friend request.",
