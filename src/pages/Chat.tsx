@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { User, Send, Ban, UserPlus, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { chatApi } from "@/services/chatApi";
 import { ChatWebSocket } from "@/services/websocket";
 import { useQuery } from "@tanstack/react-query";
@@ -31,8 +31,8 @@ const Chat = () => {
   useEffect(() => {
     if (selectedChat) {
       wsRef.current = new ChatWebSocket(
-        currentUserId.toString(),
-        selectedChat.toString()
+        currentUserId,
+        selectedChat
       );
 
       wsRef.current.onMessage((data) => {
@@ -52,10 +52,10 @@ const Chat = () => {
     setMessage("");
   };
 
-  const handleInviteFriend = async (userId: string) => {
+  const handleInviteFriend = async (userId: number) => {
     try {
       await chatApi.inviteFriend({
-        user1: currentUserId.toString(),
+        user1: currentUserId,
         user2: userId,
         type: "friend",
         status: "pending"
@@ -152,14 +152,14 @@ const Chat = () => {
           <div className="w-full space-y-2 mt-4">
             <Button 
               className="w-full glass-button flex items-center gap-2"
-              onClick={() => handleInviteFriend("2")}
+              onClick={() => handleInviteFriend(2)}
             >
               <Target size={16} />
               Challenge to Match
             </Button>
             <Button 
               className="w-full glass-button flex items-center gap-2"
-              onClick={() => handleInviteFriend("2")}
+              onClick={() => handleInviteFriend(2)}
             >
               <UserPlus size={16} />
               Add Friend
@@ -167,7 +167,7 @@ const Chat = () => {
             <Button 
               variant="destructive" 
               className="w-full flex items-center gap-2"
-              onClick={() => chatApi.blockFriend(currentUserId.toString(), "2")}
+              onClick={() => chatApi.blockFriend(currentUserId, 2)}
             >
               <Ban size={16} />
               Block User

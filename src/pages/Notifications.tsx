@@ -8,16 +8,17 @@ import { chatApi } from "@/services/chatApi";
 const Notifications = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const currentUserId = 1; // Hardcoded current user ID
 
   // Fetch notifications
   const { data: notifications, isLoading } = useQuery({
-    queryKey: ['notifications', 1], // Replace 1 with actual user ID
-    queryFn: () => chatApi.getNotifications(1), // Replace 1 with actual user ID
+    queryKey: ['notifications', currentUserId],
+    queryFn: () => chatApi.getNotifications(currentUserId),
   });
 
   // Accept friend/game request mutation
   const acceptMutation = useMutation({
-    mutationFn: ({ user1, user2, type }: { user1: string, user2: string, type: string }) => 
+    mutationFn: ({ user1, user2, type }: { user1: number, user2: number, type: string }) => 
       chatApi.acceptFriend(user1, user2, type),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications'] });
@@ -30,7 +31,7 @@ const Notifications = () => {
 
   // Decline friend/game request mutation
   const declineMutation = useMutation({
-    mutationFn: (user2: string) => chatApi.declineFriend("1", user2), // Replace "1" with actual user ID
+    mutationFn: (user2: number) => chatApi.declineFriend(currentUserId, user2),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications'] });
       toast({
@@ -43,7 +44,7 @@ const Notifications = () => {
   const handleAction = (action: "accept" | "decline", notification: any) => {
     if (action === "accept") {
       acceptMutation.mutate({
-        user1: "1", // Replace with actual user ID
+        user1: currentUserId,
         user2: notification.sender,
         type: notification.type,
       });
