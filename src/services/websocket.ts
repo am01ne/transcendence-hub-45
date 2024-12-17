@@ -2,12 +2,12 @@ export class ChatWebSocket {
   private ws: WebSocket | null = null;
   private messageHandlers: ((message: any) => void)[] = [];
 
-  constructor(userId: string, roomId: string) {
+  constructor(userId: number, roomId: number) {
     this.connect(userId, roomId);
   }
 
-  private connect(userId: string, roomId: string) {
-    this.ws = new WebSocket(`ws://localhost:8000/ws/chat/${userId}/${roomId}/`);
+  private connect(userId: number, roomId: number) {
+    this.ws = new WebSocket(`ws://localhost:8000/ws/chat/${userId.toString()}/${roomId.toString()}/`);
     
     this.ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
