@@ -9,6 +9,24 @@ import { chatApi } from "@/services/chatApi";
 
 const players = [
   { 
+    id: 2, 
+    name: "Alice Smith", 
+    level: 28,
+    avatar: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=64&h=64&fit=crop&auto=format"
+  },
+  { 
+    id: 3, 
+    name: "Bob Johnson", 
+    level: 35,
+    avatar: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=64&h=64&fit=crop&auto=format"
+  },
+  { 
+    id: 4, 
+    name: "Carol White", 
+    level: 42,
+    avatar: "https://images.unsplash.com/photo-1501286353178-1ec881214838?w=64&h=64&fit=crop&auto=format"
+  },
+  { 
     id: 5, 
     name: "David Brown", 
     level: 31,
