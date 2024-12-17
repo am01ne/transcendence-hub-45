@@ -2,38 +2,59 @@ import { Bell, Check, X, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-
-// Mock notifications data
-const notifications = [
-  {
-    id: 1,
-    type: "friend",
-    message: "John Doe sent you a friend request",
-    timestamp: "2 hours ago",
-  },
-  {
-    id: 2,
-    type: "tournament",
-    message: "New tournament starting soon!",
-    timestamp: "3 hours ago",
-  },
-  {
-    id: 3,
-    type: "match",
-    message: "Alice invited you to a match",
-    timestamp: "5 hours ago",
-  },
-];
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { chatApi } from "@/services/chatApi";
 
 const Notifications = () => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  const handleAction = (action: string, type: string) => {
-    toast({
-      title: `${action} ${type}`,
-      description: `You have ${action.toLowerCase()}ed the ${type}`,
-    });
+  // Fetch notifications
+  const { data: notifications, isLoading } = useQuery({
+    queryKey: ['notifications', 1], // Replace 1 with actual user ID
+    queryFn: () => chatApi.getNotifications(1), // Replace 1 with actual user ID
+  });
+
+  // Accept friend/game request mutation
+  const acceptMutation = useMutation({
+    mutationFn: ({ user1, user2, type }: { user1: string, user2: string, type: string }) => 
+      chatApi.acceptFriend(user1, user2, type),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+      toast({
+        title: "Request accepted",
+        description: "The request has been accepted successfully",
+      });
+    },
+  });
+
+  // Decline friend/game request mutation
+  const declineMutation = useMutation({
+    mutationFn: (user2: string) => chatApi.declineFriend("1", user2), // Replace "1" with actual user ID
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+      toast({
+        title: "Request declined",
+        description: "The request has been declined",
+      });
+    },
+  });
+
+  const handleAction = (action: "accept" | "decline", notification: any) => {
+    if (action === "accept") {
+      acceptMutation.mutate({
+        user1: "1", // Replace with actual user ID
+        user2: notification.sender,
+        type: notification.type,
+      });
+    } else {
+      declineMutation.mutate(notification.sender);
+    }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="space-y-4 p-4">
@@ -42,7 +63,7 @@ const Notifications = () => {
         <h1 className="text-2xl font-bold">Notifications</h1>
       </div>
 
-      {notifications.map((notification) => (
+      {notifications?.map((notification: any) => (
         <Card key={notification.id} className="w-full">
           <CardContent className="p-4">
             <div className="flex justify-between items-center">
@@ -53,7 +74,7 @@ const Notifications = () => {
               <div className="flex gap-2">
                 {notification.type === "tournament" ? (
                   <Button
-                    onClick={() => handleAction("Join", "tournament")}
+                    onClick={() => handleAction("accept", notification)}
                     className="bg-green-500 hover:bg-green-600"
                   >
                     <Trophy className="h-4 w-4 mr-2" />
@@ -62,14 +83,14 @@ const Notifications = () => {
                 ) : (
                   <>
                     <Button
-                      onClick={() => handleAction("Accept", notification.type)}
+                      onClick={() => handleAction("accept", notification)}
                       className="bg-green-500 hover:bg-green-600"
                     >
                       <Check className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="destructive"
-                      onClick={() => handleAction("Deny", notification.type)}
+                      onClick={() => handleAction("decline", notification)}
                     >
                       <X className="h-4 w-4" />
                     </Button>

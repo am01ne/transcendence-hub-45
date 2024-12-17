@@ -31,6 +31,11 @@ export const chatApi = {
     return response.json();
   },
 
+  getNotifications: async (userId: number): Promise<any[]> => {
+    const response = await fetch(`${BASE_URL}/getNotifications/${userId}`);
+    return response.json();
+  },
+
   inviteFriend: async (request: FriendRequest): Promise<void> => {
     await fetch(`${BASE_URL}/inviteFriend/`, {
       method: 'POST',
