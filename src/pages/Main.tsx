@@ -4,14 +4,42 @@ import { Input } from "@/components/ui/input";
 import { LogIn } from "lucide-react";
 import { User42 } from "@/components/icons/User42";
 import { toast } from "sonner";
+import { useState } from "react";
 
 const Main = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Welcome back!");
-    navigate("/game");
+    
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Store the token if returned by the API
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+        }
+        toast.success("Welcome back!");
+        navigate("/game");
+      } else {
+        toast.error("Invalid credentials");
+      }
+    } catch (error) {
+      toast.error("Login failed. Please try again.");
+    }
   };
 
   const handleTestAccount = () => {
@@ -37,10 +65,11 @@ const Main = () => {
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm text-muted-foreground">Email</label>
+              <label className="text-sm text-muted-foreground">Username</label>
               <Input
-                type="email"
-                defaultValue="test@example.com"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="glass-effect"
               />
             </div>
@@ -54,7 +83,8 @@ const Main = () => {
               </div>
               <Input
                 type="password"
-                defaultValue="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="glass-effect"
               />
             </div>
