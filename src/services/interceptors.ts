@@ -1,15 +1,8 @@
 import api from './api';
-import { AxiosRequestHeaders } from 'axios';
 
 // Add a request interceptor
 api.interceptors.request.use(
   (config) => {
-    // Ensure headers are properly set for CORS
-    config.headers = {
-      ...config.headers,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    } as AxiosRequestHeaders;
     return config;
   },
   (error) => {
