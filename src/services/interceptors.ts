@@ -1,4 +1,5 @@
 import api from './api';
+import { AxiosRequestHeaders } from 'axios';
 
 // Add a request interceptor
 api.interceptors.request.use(
@@ -8,7 +9,7 @@ api.interceptors.request.use(
       ...config.headers,
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-    };
+    } as AxiosRequestHeaders;
     return config;
   },
   (error) => {
