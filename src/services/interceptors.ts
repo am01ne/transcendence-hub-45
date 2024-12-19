@@ -1,9 +1,9 @@
 import api from './api';
-import { AxiosRequestConfig } from 'axios';
+import { InternalAxiosRequestConfig } from 'axios';
 
 // Add a request interceptor
 api.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     // Get the JWT token from cookies
     const token = document.cookie
       .split('; ')
@@ -11,10 +11,7 @@ api.interceptors.request.use(
       ?.split('=')[1];
 
     if (token) {
-      config.headers = {
-        ...config.headers,
-        'Authorization': `Bearer ${token}`
-      };
+      config.headers.set('Authorization', `Bearer ${token}`);
     }
     return config;
   },
