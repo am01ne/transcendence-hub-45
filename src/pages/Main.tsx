@@ -5,6 +5,7 @@ import { LogIn } from "lucide-react";
 import { User42 } from "@/components/icons/User42";
 import { toast } from "sonner";
 import { useState } from "react";
+import api from "@/services/api";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -15,30 +16,17 @@ const Main = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+      const response = await api.post('/auth/login', {
+        username,
+        password,
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        // Store the token if returned by the API
-        if (data.token) {
-          localStorage.setItem('token', data.token);
-        }
+      if (response.status === 200) {
         toast.success("Welcome back!");
         navigate("/game");
-      } else {
-        toast.error("Invalid credentials");
       }
     } catch (error) {
-      toast.error("Login failed. Please try again.");
+      toast.error("Invalid credentials");
     }
   };
 
