@@ -4,11 +4,8 @@ import { InternalAxiosRequestConfig } from 'axios';
 // Add a request interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // Get the JWT token from cookies
-    const token = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('jwt='))
-      ?.split('=')[1];
+    // Get the JWT token from localStorage instead of cookies
+    const token = localStorage.getItem('jwt_token');
 
     if (token) {
       config.headers.set('Authorization', `Bearer ${token}`);
@@ -23,11 +20,17 @@ api.interceptors.request.use(
 // Add a response interceptor
 api.interceptors.response.use(
   (response) => {
+    // If the response includes a token, save it
+    const token = response.headers['authorization'];
+    if (token) {
+      localStorage.setItem('jwt_token', token.replace('Bearer ', ''));
+    }
     return response;
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized access
+      // Clear token and redirect to login on unauthorized
+      localStorage.removeItem('jwt_token');
       window.location.href = '/';
     }
     return Promise.reject(error);
