@@ -3,8 +3,12 @@ import api from './api';
 // Add a request interceptor
 api.interceptors.request.use(
   (config) => {
-    // The cookie will be automatically included in requests
-    // due to withCredentials: true
+    // Ensure headers are properly set for CORS
+    config.headers = {
+      ...config.headers,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
     return config;
   },
   (error) => {
